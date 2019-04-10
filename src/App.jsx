@@ -48,9 +48,10 @@ class App extends Component {
     //       },
     //     ]
     //   };
+
     //send data to the server
-    this.socket.onopen = function (event) {
-      webSocket.send("JSON.stringify(msg"); 
+    this.socket.onopen = event => {
+      console.log("Client connected to socket server") 
     };
     
     // receiving messages from the server
