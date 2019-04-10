@@ -27,15 +27,42 @@ class App extends Component {
 
   componentDidMount() {
     console.log("componentDidMount <App />");
-    setTimeout(() => {
-      console.log("Simulating incoming message");
-      // Add a new message to the list of messages in the data store
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-      const messages = this.state.messages.concat(newMessage)
-      // Update the state of the app component.
-      // Calling setState will trigger a call to render() in App and all child components.
-      this.setState({messages: messages})
-    }, 3000);
+    // setTimeout(() => {
+    //   console.log("Simulating incoming message");
+    //   // Add a new message to the list of messages in the data store
+    //   const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
+    //   const messages = this.state.messages.concat(newMessage)
+    //   // Update the state of the app component.
+    //   // Calling setState will trigger a call to render() in App and all child components.
+    //   this.setState({messages: messages})
+    // }, 3000);
+
+    // webSocket server
+    this.socket = new WebSocket("ws://localhost:3001");
+    // const msg = { 
+    //   messages: [
+    //     {
+    //       username,
+    //       content,
+    //       id
+    //       },
+    //     ]
+    //   };
+    //send data to the server
+    this.socket.onopen = function (event) {
+      webSocket.send("JSON.stringify(msg"); 
+    };
+    
+    // receiving messages from the server
+    this.socket.onmessage = event => {
+      console.log(`Got message from the server: ${event.data}`);
+    }
+
+    //closing connection
+    this.onClose = () => {
+      console.log("Client disconnected");
+    }
+
   }
   
   addmessage(content) {
@@ -56,8 +83,12 @@ class App extends Component {
     return (
   <div>   
     <nav className="navbar">
-      <a href="/" className="navbar-brand">THE ABYSS</a>
+      <a href="/" className="navbar-brand">PIT STOP</a>
+      <img src="/build/vortex.png"></img>
     </nav>
+    <div className="zizek">
+      <img src="/build/Zizek.jpg"></img>
+    </div>
     <MessageList messages={this.state.messages}/>
     <ChatBar
       addmessage={this.addmessage}
