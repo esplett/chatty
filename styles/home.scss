@@ -1,32 +1,40 @@
-$color-theme: #a69dc5;
+$color-theme:#bbbdc0;
 
 body {
-  background: white;
-  color: black;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
-  margin: 70px 0;
+  background-image: linear-gradient(to top right, #010202, #26292d);
+  color: white;
+  font-family: 'VT323', monospace;
+  font-size: 25px;
+  margin: 80px 0;
 }
 
 .chatbar {
   background: $color-theme;
-  border-top: 1px solid black;
+  // border-top: 1px solid black;
   bottom: 0;
   display: flex;
   left: 0;
   padding: 5px;
   position: fixed;
   right: 0;
+  border: 3px;
+  border-style: outset;
+  border-color: #898b8c  #c0c0c0;
+
 }
 
 .chatbar-message,
 .chatbar-username {
-  border: 1px solid black;
+  // border: 1px solid black;
   display: block;
   height: 40px;
   line-height: 40px;
   margin: 5px;
   padding: 0 9px;
+  border: 3px;
+  border-style: outset;
+  border-color: #898b8c  #c0c0c0;
+  width: 1100px;
 }
 
 .chatbar-message {
@@ -65,28 +73,43 @@ body {
 
 .navbar {
   background: $color-theme;
-  border-bottom: 1px solid black;
-  height: 60px;
+  // border-bottom: 1px solid black;
+  height: 66px;
   left: 0;
   padding: 0 10px;
   position: fixed;
   right: 0;
   top: 0;
+  border: 3px;
+  border-style: outset;
+  border-color: #898b8c  #c0c0c0;
 }
 
 .navbar-brand {
-  color: inherit;
   display: block;
   float: left;
   font-weight: 700;
-  font-size: 28px;
+  font-size: 42px;
   height: 60px;
   line-height: 60px;
   padding: 0 10px;
   text-decoration: none;
+  font-family: 'Permanent Marker', cursive;
+  color: black;
+}
+
+.navbar img {
+  height: 69px;
+  width: 74px;
 }
 
 h1 {
   color: $color-theme;
+}
+
+.zizek {
+  float: right;
+  width: 600px;
+  margin-top: -20px;
 }
 
