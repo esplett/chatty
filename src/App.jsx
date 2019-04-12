@@ -8,21 +8,10 @@ class App extends Component {
     super(props);
     // this is the *only* time you should assign directly to state:
     this.state = {
-      currentUser: { name: "Bob" }, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: [
-        {
-          username: "Bob",
-          content: "Has anyone seen my marbles?",
-          id: 12345
-        },
-        {
-          username: "Anonymous",
-          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
-          id: 54321
-        }
-      ]
+      currentUser: { name: "" }, // optional. if currentUser is not defined, it means the user is Anonymous
+      messages: [] //messages coming from the server will be stored here as they arrive
     };
-    this.addmessage = this.addmessage.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
   }
 
   componentDidMount() {
@@ -39,15 +28,6 @@ class App extends Component {
 
     // webSocket server
     this.socket = new WebSocket("ws://localhost:3001");
-    // const msg = { 
-    //   messages: [
-    //     {
-    //       username,
-    //       content,
-    //       id
-    //       },
-    //     ]
-    //   };
 
     //send data to the server
     this.socket.onopen = event => {
@@ -55,29 +35,13 @@ class App extends Component {
     };
     
     // receiving messages from the server
-    this.socket.onmessage = event => {
-      console.log(`Got message from the server: ${event.data}`);
-    }
+    this.socket.onmessage = this.handleServerMessage;
 
     //closing connection
     this.onClose = () => {
       console.log("Client disconnected");
     }
 
-  }
-  
-  addmessage(content) {
-    const Oldmessages = this.state.messages;
-    const chatObject = {
-      username: "Bob",
-      content,
-    };
-    const Newmessages = [...Oldmessages, chatObject];
-    this.setState({ messages: Newmessages });
-  }
-
-  render() {
-    // more code here..
   }
 
   render() {
@@ -92,11 +56,51 @@ class App extends Component {
     </div>
     <MessageList messages={this.state.messages}/>
     <ChatBar
-      addmessage={this.addmessage}
-      currentUser={this.state.currentUser}
+      // addmessage={this.addmessage}  
+      sendName={this.sendName}
+      sendMessage={this.sendMessage}
+      username={this.state.currentUser.name}
       />
   </div> 
     );
   }
+
+  // addmessage(content) {
+  //   const Oldmessages = this.state.messages;
+  //   const chatObject = {
+  //     username: "Bob",
+  //     content,
+  //   };
+  //   const Newmessages = [...Oldmessages, chatObject];
+  //   this.setState({ messages: Newmessages });
+  // }
+
+  sendMessage (newMessage) {
+    console.log("Where is newMessage: ", newMessage)
+    // if (this.state.newMessage) {
+      const message = {
+        username: this.state.currentUser.name,
+        content: newMessage,
+        id: Date.now(),
+      };
+      console.log("sendMessage", message)
+      this.socket.send(JSON.stringify(message));
+    // }
+  }
+
+  handleServerMessage = event => {
+    console.log(event.data)
+    const message = JSON.parse(event.data);
+    // message[0].id = uuid();
+    console.log("Message Obj: ", message, message.id, message.content)
+    this.setState({messages: [...this.state.messages, message]}, 
+      ()=>{console.log(this.state)});
+  }
+
+  sendName = (name) => {
+    this.setState({currentUser:{name: name}})
+  }
+
+
 }
 export default App;
