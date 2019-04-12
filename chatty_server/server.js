@@ -2,7 +2,7 @@
 const express = require('express');
 const Ws = require('ws')
 const SocketServer = Ws.Server;
-const uuid = ('uuid/v4');
+const uuid = require('uuid/v4');
 
 // Set the port to 3001
 const PORT = 3001;
@@ -24,10 +24,9 @@ wss.on('connection', (ws) => {
 
 // receiving data
 ws.on('message', function incoming(data) {
-    // const message = JSON.parse(event.data);
-    // const message = JSON.parse(data);
-    // message[0].id = uuid();
-    wss.broadcast(data);
+    const message = JSON.parse(data);
+    message.id = uuid();
+    wss.broadcast(JSON.stringify(message));
   });
 
 
