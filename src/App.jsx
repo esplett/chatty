@@ -25,7 +25,7 @@ class App extends Component {
     };
     
     // receiving messages from the server
-    this.socket.onmessage = this.handleServerMessage;
+    this.socket.onmessage = this.handleServerMessage.bind(this);
 
     //closing connection
     this.onClose = () => {
@@ -59,6 +59,7 @@ class App extends Component {
       const message = {
         username: this.state.currentUser.name,
         content: newMessage,
+        type: "postMessage"
       };
       console.log("sendMessage", message)
       this.socket.send(JSON.stringify(message));
@@ -67,13 +68,36 @@ class App extends Component {
   handleServerMessage = event => {
     console.log(event.data)
     const message = JSON.parse(event.data);
-    console.log("Message Obj: ", message, message.id, message.content)
-    this.setState({messages: [...this.state.messages, message]}, 
+    switch(message.type) {
+      case "incomingMessage":
+      //handle incoming message
+      console.log("Message Obj: ", message, message.id, message.content)
+      this.setState({messages: [...this.state.messages, message]}, 
       ()=>{console.log(this.state)});
+      break;
+      case "incomingNotification":
+      this.setState({messages: [...this.state.messages, message]})
+      break;
+    } 
   }
 
-  sendName = (name) => {
+  sendName = name => {
+    let oldName = this.state.currentUser.name;
     this.setState({currentUser:{name: name}})
+    // if (oldName = "") {
+    //   let oldName = Anonymous
+    // }
+    const username = {
+        name: name,
+        content: `${oldName} changed their name to ${name} `,
+        type: "postNotification"
+      }
+    this.socket.send(JSON.stringify(username))
+    console.log("sent to server")
+  }
+
+  userCountChanged = userCount => {
+    
   }
 
 
