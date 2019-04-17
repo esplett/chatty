@@ -7,9 +7,8 @@ My design concept was influenced by 'nihilist philosophy' and European philosoph
 
 ## Screenshots
 
-!["screenshot of the main page"](https://github.com/esplett/tweeter/blob/master/docs/tweets.png?raw=true)
-!["screenshot of the hover effect"](https://github.com/esplett/tweeter/blob/master/docs/hover.png?raw=true)
-!["screenshot of an error message"](https://github.com/esplett/tweeter/blob/master/docs/error.png?raw=true)
+!["screenshot of the pit stop page"](https://github.com/esplett/chatty/blob/master/docs/chatty.png?raw=true)
+
 
 ## Getting Started
 
