@@ -1,19 +1,17 @@
-React Boilerplate
+# Chatty App aka 'Pit Stop'
 =====================
 
-A minimal and light dev environment for ReactJS.
+A client-side SPA (single-page app) built with ReactJS, Webpack, Babel, Node.js and Web Sockets. The client-side app communicates with a server via WebSockets for multi-user real-time updates. No persistent database is involved; the focus is on the client-side experience.
 
-### Usage
+My design concept was influenced by 'nihilist philosophy' and European philosopher Slavoj Zizek (using a watercolor painting I found of him online) to create an oppressive atmosphere while chatting with other users about the futility of existence in the 'pit' of despair.
 
-Clone the boilerplate and create your own git repo.
+## Screenshots
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
+!["screenshot of the main page"](https://github.com/esplett/tweeter/blob/master/docs/tweets.png?raw=true)
+!["screenshot of the hover effect"](https://github.com/esplett/tweeter/blob/master/docs/hover.png?raw=true)
+!["screenshot of an error message"](https://github.com/esplett/tweeter/blob/master/docs/error.png?raw=true)
+
+## Getting Started
 
 Install the dependencies and start the server.
 
@@ -21,20 +19,6 @@ Install the dependencies and start the server.
 npm install
 npm start
 open http://localhost:3000
-```
-
-### Static Files
-
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
 ```
 
 ### Dependencies
