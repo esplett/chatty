@@ -6,36 +6,36 @@ class ChatBar extends Component {
     return (
       
         <footer className="chatbar">
-            <form>
-                <input className="chatbar-username" 
-                    defaultValue={this.props.username}
-                    onKeyDown={this.handleNameChange}
-                    placeholder="Your Name (Optional)" />
+
+        <input className="chatbar-username" 
+        defaultValue={this.props.username}
+        onKeyDown={this.handleNameChange}
+        placeholder="Your Name (Optional)" />
                     
-                <input 
-                    className="chatbar-message"
-                    onKeyDown={this.handleChange}
-                    placeholder="Type a message and hit ENTER" 
-                    />
-            </form>
+        <input className="chatbar-message"
+        onKeyDown={this.handleChange}
+        placeholder="Type a message and hit ENTER"/>
+    
         </footer>
     );
   }
 
     handleChange = (event) => {
-        //if you press enter passes event target's value
-        //then clears target
+        //pressing enter passes event target's value
         if (event.keyCode === 13) {
             this.props.sendMessage(event.target.value)
             console.log(event.target.value)
+            //then clears target
             event.target.value = "";
 
         }
     }     
 
     handleNameChange = (event) => {
+        console.log("Name has changed")
         if (event.keyCode === 13) {
             this.props.sendName(event.target.value);
+        console.log("Enter press")
         }
     }
 

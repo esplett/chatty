@@ -8,8 +8,9 @@ class App extends Component {
     super(props);
     // this is the *only* time you should assign directly to state:
     this.state = {
-      currentUser: { name: "" }, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: [] //messages coming from the server will be stored here as they arrive
+      currentUser: { name: "Anonymous" },
+      messages: [], //messages coming from the server will be stored here as they arrive
+      peopleOnline: 0,
     };
     this.sendMessage = this.sendMessage.bind(this);
   }
@@ -40,6 +41,7 @@ class App extends Component {
     <nav className="navbar">
       <a href="/" className="navbar-brand">PIT STOP</a>
       <img src="/build/vortex.png"></img>
+      <div className="count">{this.state.peopleOnline} users online</div>
     </nav>
     <div className="zizek">
       <img src="/build/Zizek.jpg"></img>
@@ -78,15 +80,15 @@ class App extends Component {
       case "incomingNotification":
       this.setState({messages: [...this.state.messages, message]})
       break;
+      case "userCountChanged":
+      this.setState({peopleOnline: message.userCount})
+      console.log(message)
     } 
   }
 
   sendName = name => {
     let oldName = this.state.currentUser.name;
-    this.setState({currentUser:{name: name}})
-    // if (oldName = "") {
-    //   let oldName = Anonymous
-    // }
+    this.setState({currentUser:{name: name}})  
     const username = {
         name: name,
         content: `${oldName} changed their name to ${name} `,
@@ -96,9 +98,6 @@ class App extends Component {
     console.log("sent to server")
   }
 
-  userCountChanged = userCount => {
-    
-  }
 
 
 }
